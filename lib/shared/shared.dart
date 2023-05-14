@@ -1,1 +1,1 @@
-export 'package:reportes_sia_stable/shared/user_navigation_rail/user_navigation_rail_shared.dart';
+export 'package:reportes_sia_stable/shared/sidepanel/sidepanel_shared.dart';

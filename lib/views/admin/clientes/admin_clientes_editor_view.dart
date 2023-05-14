@@ -3,15 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:one_context/one_context.dart';
 import 'package:reportes_sia_stable/widgets/space/space_widgets.dart';
+import 'package:textfield_search/textfield_search.dart';
 
 class AdminClientesEditorView extends HookConsumerWidget {
   const AdminClientesEditorView({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //THEME
+    final globalTheme = Theme.of(context);
+
+    //HOOKS
+    TextEditingController searchController = TextEditingController();
+
+    //FUNCTIONS
+    Future<List> fetchData() async {
+      await Future.delayed(const Duration(milliseconds: 1000));
+      List list = [];
+      String inputText = searchController.text;
+
+      list.add('$inputText Item 1');
+      list.add('$inputText Item 2');
+      list.add('$inputText Item 3');
+      return list;
+    }
+
     return AlertDialog(
-      title: Text('Crear colaborador'),
+      scrollable: true,
+      title: Text('Crear cliente'),
       content: Container(
-        width: 400,
+        width: 500,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -28,24 +48,55 @@ class AdminClientesEditorView extends HookConsumerWidget {
             Text('Datos basicos'),
             SpaceY(),
             TextField(
-              decoration: InputDecoration(prefixIcon: Icon(CupertinoIcons.person), hintText: 'Nombre del colaborador'),
+              decoration: InputDecoration(
+                  prefixIcon: Icon(CupertinoIcons.person),
+                  hintText: 'Nombre del cliente'),
             ),
             SpaceY(),
             Text('Credenciales'),
             SpaceY(),
             TextField(
-              decoration: InputDecoration(prefixIcon: Icon(CupertinoIcons.mail), hintText: 'Correo electronico'),
+              decoration: InputDecoration(
+                  prefixIcon: Icon(CupertinoIcons.mail),
+                  hintText: 'Correo electronico'),
             ),
             SpaceY(),
             TextField(
-              decoration: InputDecoration(prefixIcon: Icon(CupertinoIcons.lock), hintText: 'Contraseña'),
+              decoration: InputDecoration(
+                  prefixIcon: Icon(CupertinoIcons.lock),
+                  hintText: 'Contraseña'),
             ),
+            SpaceY(
+              percent: 2,
+            ),
+            Divider(),
+            SpaceY(),
+            Text('Colaboradores seleccionados'),
+            SpaceY(),
+            TextFieldSearch(
+              decoration: InputDecoration(
+                  prefixIcon: Icon(CupertinoIcons.search),
+                  hintText: 'Buscar colaborador'),
+              label: 'Buscar colaborador',
+              controller: searchController,
+              future: () => fetchData(),
+            ),
+            ListTile(
+              tileColor:
+                  globalTheme.colorScheme.surfaceVariant.withOpacity(.05),
+              leading:
+                  CircleAvatar(child: Icon(CupertinoIcons.building_2_fill)),
+              title: Text('Colaborador'),
+              trailing: IconButton(
+                  onPressed: () {}, icon: Icon(CupertinoIcons.delete)),
+            )
           ],
         ),
       ),
       actions: [
-        TextButton(onPressed: () => OneContext().popAllDialogs(), child: Text('Cancelar')),
-        FilledButton(onPressed: () {}, child: Text('Crear colaborador')),
+        TextButton(
+            onPressed: () => OneContext().popDialog(), child: Text('Cancelar')),
+        FilledButton(onPressed: () {}, child: Text('Crear cliente')),
       ],
     );
   }

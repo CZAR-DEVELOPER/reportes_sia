@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reportes_sia_stable/providers/providers.dart';
 import 'package:reportes_sia_stable/widgets/slivers/sliver_widgets.dart';
-import 'package:reportes_sia_stable/widgets/space/space_widgets.dart';
 import 'package:reportes_sia_stable/widgets/text/text_widget.dart';
+import 'package:reportes_sia_stable/widgets/widgets.dart';
 import 'package:textfield_search/textfield_search.dart';
 
-class AdminClientesView extends HookConsumerWidget {
-  const AdminClientesView({super.key});
+class AdminColaboradoresView extends HookConsumerWidget {
+  const AdminColaboradoresView({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //HOOKS
@@ -17,28 +17,39 @@ class AdminClientesView extends HookConsumerWidget {
     //PROVIDERS
     final _adminProvider = ref.read(adminProvider.notifier);
 
+    Future<List> fetchData() async {
+      await Future.delayed(const Duration(milliseconds: 1000));
+      List list = [];
+      String inputText = searchController.text;
+
+      list.add('$inputText Item 1');
+      list.add('$inputText Item 2');
+      list.add('$inputText Item 3');
+      return list;
+    }
+
     return Scaffold(
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => _adminProvider.openClientesEditor(),
+            onPressed: () => _adminProvider.openColaboradoresEditor(),
             icon: const Icon(CupertinoIcons.add),
             label: const Text('Nuevo colaborador')),
         body: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(title: Text('Administrar clientes')),
+            const CustomSliverAppBar(title: Text('Administrar colaboradores')),
             CustomSliverList(
               padding: EdgeInsets.symmetric(horizontal: 16),
               children: [
-                TextTitle('Administrar clientes'),
-                Text('Crea, administra y elimina tus clientes'),
+                TextTitle('Administrar colaboradores'),
+                Text('Crea, administra y elimina tus colaboradores'),
                 SpaceY(),
                 Row(
                   children: [
-                    TextSubtitle('Mis clientes'),
+                    TextSubtitle('Mis colaboradores'),
                     Spacer(),
                     FilledButton.tonalIcon(
                         onPressed: () {},
                         icon: Icon(CupertinoIcons.search),
-                        label: Text('Buscar cliente')),
+                        label: Text('Buscar colaborador')),
                   ],
                 ),
                 SpaceY(),
@@ -49,9 +60,9 @@ class AdminClientesView extends HookConsumerWidget {
               for (var i = 0; i < 100; i++)
                 const ListTile(
                   leading: CircleAvatar(
-                    child: Icon(CupertinoIcons.person),
+                    child: Icon(CupertinoIcons.building_2_fill),
                   ),
-                  title: Text('Nombre del cliente'),
+                  title: Text('Nombre del colaborador'),
                   subtitle:
                       Opacity(opacity: .5, child: Text('email@ejemplo.com')),
                 )

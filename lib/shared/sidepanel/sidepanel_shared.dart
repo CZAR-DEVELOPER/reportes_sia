@@ -1,40 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:reportes_sia_stable/models/models.dart';
 import 'package:reportes_sia_stable/providers/providers.dart';
 
 import 'package:reportes_sia_stable/widgets/widgets.dart';
 
-class ExampleDestination {
-  final String label;
-  final Widget icon;
+class SidePanelShared extends HookConsumerWidget {
+  final String username;
+  final String email;
+  final String role;
+  final ValueNotifier<int> selectedIndex;
+  final List<SidePanelDestination> sidePanelDestinations;
 
-  ExampleDestination({
-    required this.label,
-    required this.icon,
+  SidePanelShared({
+    super.key,
+    required this.selectedIndex,
+    required this.sidePanelDestinations,
+    required this.username,
+    required this.email,
+    required this.role,
   });
-}
-
-List<ExampleDestination> adminDestinations = <ExampleDestination>[
-  ExampleDestination(label: 'Colaboradores', icon: const Icon(CupertinoIcons.building_2_fill)),
-  ExampleDestination(label: 'Clientes', icon: const Icon(CupertinoIcons.person)),
-  ExampleDestination(label: 'Depurador', icon: const Icon(CupertinoIcons.trash)),
-];
-
-class UserNavigationRailShared extends HookConsumerWidget {
-  const UserNavigationRailShared({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //HOOKS
+    final viewIndex = useState<int>(0);
+
     //THEME
     final globalTheme = Theme.of(context);
 
     //PROVIDERS
     final _loginProvider = ref.read(loginProvider.notifier);
 
+    //
+
     return Row(
       children: [
         Container(
-          color: Colors.white.withOpacity(.5),
+          color: globalTheme.colorScheme.surfaceVariant.withOpacity(.05),
           width: 304,
           child: Column(
             children: [
@@ -44,7 +48,7 @@ class UserNavigationRailShared extends HookConsumerWidget {
                 child: Padding(
                   padding: EdgeInsets.all(16),
                   child: Image(
-                    image: AssetImage('assets/brand/logo.webp'),
+                    image: AssetImage('assets/brand/logo_invertido.webp'),
                     width: 150,
                   ),
                 ),
@@ -56,7 +60,8 @@ class UserNavigationRailShared extends HookConsumerWidget {
                   children: [
                     Text(
                       'Nombre del usuario',
-                      style: globalTheme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+                      style: globalTheme.textTheme.bodyLarge!
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     const Opacity(
                         opacity: .5,
@@ -66,17 +71,20 @@ class UserNavigationRailShared extends HookConsumerWidget {
                     const SpaceY(),
                     Text(
                       'Administrador',
-                      style: globalTheme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+                      style: globalTheme.textTheme.bodyLarge!
+                          .copyWith(fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
               ),
-              for (var i = 0; i < adminDestinations.length; i++)
+              for (var i = 0; i < sidePanelDestinations.length; i++)
                 ListTile(
-                  onTap: () {},
-                  selected: true,
-                  leading: adminDestinations[i].icon,
-                  title: Text(adminDestinations[i].label),
+                  onTap: () {
+                    selectedIndex.value = i;
+                  },
+                  selected: i == selectedIndex.value ? true : false,
+                  leading: Icon(sidePanelDestinations[i].icon),
+                  title: Text(sidePanelDestinations[i].label),
                 ),
               const Spacer(),
               ListTile(
