@@ -45,7 +45,7 @@ class AdminClientesView extends HookConsumerWidget {
                 Divider(),
               ],
             ),
-            CustomSliverList(children: [
+            /*CustomSliverList(children: [
               for (var i = 0; i < 100; i++)
                 const ListTile(
                   leading: CircleAvatar(
@@ -55,6 +55,18 @@ class AdminClientesView extends HookConsumerWidget {
                   subtitle:
                       Opacity(opacity: .5, child: Text('email@ejemplo.com')),
                 )
+            ])*/
+            CustomSliverList(children: [
+              Padding(
+                padding: const EdgeInsets.all(64),
+                child: Opacity(
+                  opacity: .25,
+                  child: Text(
+                    'Aún está vacio',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
             ])
           ],
         ));

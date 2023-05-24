@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reportes_sia_stable/providers/providers.dart';
-import 'package:reportes_sia_stable/widgets/slivers/sliver_widgets.dart';
-import 'package:reportes_sia_stable/widgets/text/text_widget.dart';
 import 'package:reportes_sia_stable/widgets/widgets.dart';
-import 'package:textfield_search/textfield_search.dart';
 
 class AdminColaboradoresView extends HookConsumerWidget {
   const AdminColaboradoresView({super.key});
@@ -56,6 +53,7 @@ class AdminColaboradoresView extends HookConsumerWidget {
                 Divider(),
               ],
             ),
+            /*
             CustomSliverList(children: [
               for (var i = 0; i < 100; i++)
                 const ListTile(
@@ -66,6 +64,18 @@ class AdminColaboradoresView extends HookConsumerWidget {
                   subtitle:
                       Opacity(opacity: .5, child: Text('email@ejemplo.com')),
                 )
+            ])*/
+            CustomSliverList(children: [
+              Padding(
+                padding: const EdgeInsets.all(64),
+                child: Opacity(
+                  opacity: .25,
+                  child: Text(
+                    'Aún está vacio',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
             ])
           ],
         ));

@@ -83,7 +83,7 @@ class SidePanelShared extends HookConsumerWidget {
                     selectedIndex.value = i;
                   },
                   selected: i == selectedIndex.value ? true : false,
-                  leading: Icon(sidePanelDestinations[i].icon),
+                  leading: sidePanelDestinations[i].icon,
                   title: Text(sidePanelDestinations[i].label),
                 ),
               const Spacer(),

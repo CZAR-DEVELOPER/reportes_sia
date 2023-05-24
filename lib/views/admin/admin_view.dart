@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reportes_sia_stable/models/sidepanel/sidepaneldestination_model.dart';
-import 'package:reportes_sia_stable/providers/providers.dart';
 import 'package:reportes_sia_stable/shared/shared.dart';
 import 'package:reportes_sia_stable/views/admin/clientes/admin_clientes_view.dart';
-import 'package:reportes_sia_stable/views/admin/colaboradores/admin_admin_view.dart';
-import 'package:reportes_sia_stable/widgets/widgets.dart';
+import 'package:reportes_sia_stable/views/admin/colaboradores/admin_colaborador_view.dart';
 
 class AdminView extends HookConsumerWidget {
   const AdminView({super.key});
@@ -33,15 +31,17 @@ class AdminView extends HookConsumerWidget {
 
     final List<SidePanelDestination> sidePanelDestinations = [
       SidePanelDestination(
-          label: 'Cliente', route: 'admin-client', icon: CupertinoIcons.person),
+          label: 'Cliente',
+          route: 'admin-client',
+          icon: Icon(CupertinoIcons.person)),
       SidePanelDestination(
           label: 'Colaborador',
           route: 'admin-client',
-          icon: CupertinoIcons.building_2_fill),
+          icon: Icon(CupertinoIcons.building_2_fill)),
       SidePanelDestination(
           label: 'Limpiador',
           route: 'admin-client',
-          icon: CupertinoIcons.trash),
+          icon: Icon(CupertinoIcons.folder)),
     ];
 
     return Scaffold(
