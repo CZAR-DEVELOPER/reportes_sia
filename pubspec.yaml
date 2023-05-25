@@ -28,14 +28,17 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cloud_firestore: ^4.7.1
   cupertino_icons: ^1.0.2
+  file_picker: ^5.3.1
   firebase_core: ^2.12.0
+  firebase_storage: ^11.2.1
   flutter:
     sdk: flutter
   flutter_hooks: ^0.18.0
   google_fonts: ^4.0.4
   hooks_riverpod: ^2.1.1
-  one_context: ^2.1.0
+  one_context: 2.0.0
   searchfield: ^0.8.0
   textfield_search: ^0.10.0
 

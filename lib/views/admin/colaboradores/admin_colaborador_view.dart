@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:one_context/one_context.dart';
 import 'package:reportes_sia_stable/providers/providers.dart';
 import 'package:reportes_sia_stable/widgets/widgets.dart';
 
@@ -27,9 +28,7 @@ class AdminColaboradoresView extends HookConsumerWidget {
 
     return Scaffold(
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => _adminProvider.openColaboradoresEditor(),
-            icon: const Icon(CupertinoIcons.add),
-            label: const Text('Nuevo colaborador')),
+            onPressed: () => _adminProvider.openColaboradoresEditor(), icon: const Icon(CupertinoIcons.add), label: const Text('Nuevo colaborador')),
         body: CustomScrollView(
           slivers: [
             const CustomSliverAppBar(title: Text('Administrar colaboradores')),
@@ -43,10 +42,7 @@ class AdminColaboradoresView extends HookConsumerWidget {
                   children: [
                     TextSubtitle('Mis colaboradores'),
                     Spacer(),
-                    FilledButton.tonalIcon(
-                        onPressed: () {},
-                        icon: Icon(CupertinoIcons.search),
-                        label: Text('Buscar colaborador')),
+                    FilledButton.tonalIcon(onPressed: () async {}, icon: Icon(CupertinoIcons.search), label: Text('Buscar colaborador')),
                   ],
                 ),
                 SpaceY(),

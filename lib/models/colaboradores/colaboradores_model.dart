@@ -3,11 +3,14 @@ import 'dart:convert';
 
 class ColaboradoresModel {
   String? firebaseId;
+  String? imageUrl;
   String nombre;
   String email;
   String password;
+
   ColaboradoresModel({
     this.firebaseId,
+    this.imageUrl,
     required this.nombre,
     required this.email,
     required this.password,
@@ -15,12 +18,14 @@ class ColaboradoresModel {
 
   ColaboradoresModel copyWith({
     String? firebaseId,
+    String? imageUrl,
     String? nombre,
     String? email,
     String? password,
   }) {
     return ColaboradoresModel(
       firebaseId: firebaseId ?? this.firebaseId,
+      imageUrl: imageUrl ?? this.imageUrl,
       nombre: nombre ?? this.nombre,
       email: email ?? this.email,
       password: password ?? this.password,
@@ -28,8 +33,9 @@ class ColaboradoresModel {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'firebaseId': firebaseId,
+      'imageUrl': imageUrl,
       'nombre': nombre,
       'email': email,
       'password': password,
@@ -38,29 +44,30 @@ class ColaboradoresModel {
 
   factory ColaboradoresModel.fromMap(Map<String, dynamic> map) {
     return ColaboradoresModel(
-      firebaseId:
-          map['firebaseId'] != null ? map['firebaseId'] as String : null,
-      nombre: map['nombre'] as String,
-      email: map['email'] as String,
-      password: map['password'] as String,
+      firebaseId: map['firebaseId'],
+      imageUrl: map['imageUrl'],
+      nombre: map['nombre'] ?? '',
+      email: map['email'] ?? '',
+      password: map['password'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ColaboradoresModel.fromJson(String source) =>
-      ColaboradoresModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ColaboradoresModel.fromJson(String source) => ColaboradoresModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'ColaboradoresModel(firebaseId: $firebaseId, nombre: $nombre, email: $email, password: $password)';
+    return 'ColaboradoresModel(firebaseId: $firebaseId, imageUrl: $imageUrl, nombre: $nombre, email: $email, password: $password)';
   }
 
   @override
-  bool operator ==(covariant ColaboradoresModel other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other.firebaseId == firebaseId &&
+    return other is ColaboradoresModel &&
+        other.firebaseId == firebaseId &&
+        other.imageUrl == imageUrl &&
         other.nombre == nombre &&
         other.email == email &&
         other.password == password;
@@ -68,9 +75,6 @@ class ColaboradoresModel {
 
   @override
   int get hashCode {
-    return firebaseId.hashCode ^
-        nombre.hashCode ^
-        email.hashCode ^
-        password.hashCode;
+    return firebaseId.hashCode ^ imageUrl.hashCode ^ nombre.hashCode ^ email.hashCode ^ password.hashCode;
   }
 }

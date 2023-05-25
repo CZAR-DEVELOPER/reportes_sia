@@ -48,23 +48,17 @@ class AdminClientesEditorView extends HookConsumerWidget {
             Text('Datos basicos'),
             SpaceY(),
             TextField(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(CupertinoIcons.person),
-                  hintText: 'Nombre del cliente'),
+              decoration: InputDecoration(prefixIcon: Icon(CupertinoIcons.person), hintText: 'Nombre del cliente'),
             ),
             SpaceY(),
             Text('Credenciales'),
             SpaceY(),
             TextField(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(CupertinoIcons.mail),
-                  hintText: 'Correo electronico'),
+              decoration: InputDecoration(prefixIcon: Icon(CupertinoIcons.mail), hintText: 'Correo electronico'),
             ),
             SpaceY(),
             TextField(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(CupertinoIcons.lock),
-                  hintText: 'Contraseña'),
+              decoration: InputDecoration(prefixIcon: Icon(CupertinoIcons.lock), hintText: 'Contraseña'),
             ),
             SpaceY(
               percent: 2,
@@ -74,28 +68,30 @@ class AdminClientesEditorView extends HookConsumerWidget {
             Text('Colaboradores seleccionados'),
             SpaceY(),
             TextFieldSearch(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(CupertinoIcons.search),
-                  hintText: 'Buscar colaborador'),
+              decoration: InputDecoration(prefixIcon: Icon(CupertinoIcons.search), hintText: 'Buscar colaborador'),
               label: 'Buscar colaborador',
               controller: searchController,
               future: () => fetchData(),
             ),
             ListTile(
-              tileColor:
-                  globalTheme.colorScheme.surfaceVariant.withOpacity(.05),
-              leading:
-                  CircleAvatar(child: Icon(CupertinoIcons.building_2_fill)),
+              dense: true,
+              tileColor: globalTheme.colorScheme.surfaceVariant.withOpacity(.05),
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                    child: Icon(
+                  CupertinoIcons.building_2_fill,
+                  size: 12,
+                )),
+              ),
               title: Text('Colaborador'),
-              trailing: IconButton(
-                  onPressed: () {}, icon: Icon(CupertinoIcons.delete)),
+              trailing: IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.delete)),
             )
           ],
         ),
       ),
       actions: [
-        TextButton(
-            onPressed: () => OneContext().popDialog(), child: Text('Cancelar')),
+        TextButton(onPressed: () => OneContext().popDialog(), child: Text('Cancelar')),
         FilledButton(onPressed: () {}, child: Text('Crear cliente')),
       ],
     );

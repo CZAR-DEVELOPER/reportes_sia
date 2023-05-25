@@ -72,3 +72,16 @@ class TextBody extends StatelessWidget {
     );
   }
 }
+
+class TextSmall extends StatelessWidget {
+  final String sectionTitleString;
+  const TextSmall(this.sectionTitleString, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      sectionTitleString,
+      style: Theme.of(context).textTheme.bodySmall!.copyWith(),
+    );
+  }
+}
