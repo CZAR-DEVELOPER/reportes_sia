@@ -18,6 +18,7 @@ class AdminColaboradoresEditorView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //PROVIDERS
     final _firebaseColaboradoresProvider = ref.read(firebaseColaboradoresProvider.notifier);
+    final _firebaseStorageProvider = ref.read(firebaseStorageProvider.notifier);
 
     //KEYS
     final formValidatorKey = GlobalKey<FormState>();
@@ -34,8 +35,7 @@ class AdminColaboradoresEditorView extends HookConsumerWidget {
 
       if (isValidated == true) {
         final nuevoColaborador = ColaboradoresModel(nombre: nombreController.text, email: emailController.text, password: passwordController.text);
-
-        _firebaseColaboradoresProvider.createColaborador(nuevoColaborador: nuevoColaborador, selectedImage: selectedImage.value);
+        _firebaseColaboradoresProvider.createColaborador(selectedImage: selectedImage.value, colaboradoresModel: nuevoColaborador);
       }
     }
 
@@ -66,9 +66,7 @@ class AdminColaboradoresEditorView extends HookConsumerWidget {
                           type: FileType.custom,
                           allowedExtensions: ['jpg', 'png', 'jpeg'],
                           onFileLoading: (FilePickerStatus status) {
-                            if (status == FilePickerStatus.done) {
-                              OneContext().hideProgressIndicator();
-                            }
+                            if (status == FilePickerStatus.done) {}
                           });
 
                       if (archivoSeleccionado != null) {
@@ -85,6 +83,8 @@ class AdminColaboradoresEditorView extends HookConsumerWidget {
                           });
                         }
                       }
+
+                      OneContext().hideProgressIndicator();
                     },
                     label: Text('Seleccionar imagen (2 MB maximo)'),
                     icon: Icon(CupertinoIcons.camera))),
@@ -141,7 +141,11 @@ class AdminColaboradoresEditorView extends HookConsumerWidget {
       ),
       actions: [
         TextButton(onPressed: () => OneContext().popDialog(), child: Text('Cancelar')),
-        FilledButton(onPressed: () => validateForm(), child: Text('Crear colaborador')),
+        FilledButton(
+            onPressed: () {
+              validateForm();
+            },
+            child: Text('Crear colaborador')),
       ],
     );
   }
